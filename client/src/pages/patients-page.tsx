@@ -71,6 +71,17 @@ export default function PatientsPage() {
           profession: 'Advogado',
           status: 'active',
           lastAppointment: { date: '2023-10-14', time: '13:00', type: 'Avaliação' }
+        },
+        { 
+          id: 4, 
+          name: 'Ana Beatriz', 
+          email: 'ana.beatriz@email.com', 
+          phone: '(11) 97654-3210', 
+          birthDate: '1992-07-25',
+          age: 31,
+          profession: 'Professora',
+          status: 'active',
+          lastAppointment: null
         }
       ];
     }
@@ -123,7 +134,10 @@ export default function PatientsPage() {
     if (sort === 'name') {
       return a.name.localeCompare(b.name);
     } else if (sort === 'lastAppointment') {
-      return new Date(b.lastAppointment.date).getTime() - new Date(a.lastAppointment.date).getTime();
+      // Handle cases where lastAppointment might be null/undefined
+      if (!a.lastAppointment) return 1;  // null values go to the end
+      if (!b.lastAppointment) return -1; // null values go to the end
+      return new Date(b.lastAppointment?.date || '').getTime() - new Date(a.lastAppointment?.date || '').getTime();
     } else {
       return 0;
     }
@@ -354,12 +368,20 @@ export default function PatientsPage() {
                         <div className="text-sm text-gray-500 dark:text-gray-400">{patient.email}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900 dark:text-white">
-                          {format(new Date(patient.lastAppointment.date), 'dd/MM/yyyy')}
-                        </div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
-                          {patient.lastAppointment.time} - {patient.lastAppointment.type}
-                        </div>
+                        {patient.lastAppointment ? (
+                          <>
+                            <div className="text-sm text-gray-900 dark:text-white">
+                              {format(new Date(patient.lastAppointment.date), 'dd/MM/yyyy')}
+                            </div>
+                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                              {patient.lastAppointment.time} - {patient.lastAppointment.type}
+                            </div>
+                          </>
+                        ) : (
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                            Sem consultas
+                          </div>
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
