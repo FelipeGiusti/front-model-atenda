@@ -76,16 +76,15 @@ export function Sidebar({ isMobileOpen, onMobileClose }: SidebarProps) {
           <ul className="py-4 space-y-1">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link href={item.href}>
-                  <a
-                    className={cn(
-                      "sidebar-link",
-                      location === item.href && "active"
-                    )}
-                  >
-                    <span className="material-icons-round text-lg mr-3">{item.icon}</span>
-                    <span>{item.label}</span>
-                  </a>
+                <Link 
+                  href={item.href}
+                  className={cn(
+                    "sidebar-link",
+                    location === item.href && "active"
+                  )}
+                >
+                  <span className="material-icons-round text-lg mr-3">{item.icon}</span>
+                  <span>{item.label}</span>
                 </Link>
               </li>
             ))}
