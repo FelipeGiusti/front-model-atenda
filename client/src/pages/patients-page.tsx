@@ -371,11 +371,12 @@ export default function PatientsPage() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <Link href={`/medical-record/${patient.id}`}>
-                          <a className="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 mr-3 inline-flex items-center">
-                            <FileText className="h-4 w-4 mr-1" />
-                            Ver prontuário
-                          </a>
+                        <Link 
+                          href={`/medical-record/${patient.id}`}
+                          className="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 mr-3 inline-flex items-center"
+                        >
+                          <FileText className="h-4 w-4 mr-1" />
+                          Ver prontuário
                         </Link>
                         <Button variant="ghost" size="icon" className="ml-1">
                           <MoreVertical className="h-4 w-4" />

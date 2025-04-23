@@ -155,7 +155,9 @@ export default function AgendaPage() {
   
   // Find appointment for a given time slot
   const getAppointmentForTime = (time: string) => {
-    return appointments?.find(app => {
+    if (!appointments) return null;
+    
+    return appointments.find(app => {
       const [hour] = time.split(':');
       const [appHour] = app.startTime.split(':');
       return appHour === hour;
