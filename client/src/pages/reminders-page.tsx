@@ -159,7 +159,7 @@ export default function RemindersPage() {
               <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg mb-4">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="font-medium text-gray-800 dark:text-white">Status da conexão</h3>
-                  <Badge variant="success" className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                  <Badge variant="default" className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
                     Ativo
                   </Badge>
                 </div>
@@ -389,7 +389,7 @@ export default function RemindersPage() {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <Badge variant="success" className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                          <Badge variant="default" className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
                             Ativo
                           </Badge>
                         </td>

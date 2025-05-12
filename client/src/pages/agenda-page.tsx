@@ -159,7 +159,7 @@ export default function AgendaPage() {
     
     return appointments.find(app => {
       const [hour] = time.split(':');
-      const [appHour] = app.startTime.split(':');
+      const [appHour] = app.startTime?.split(':') || [];
       return appHour === hour;
     });
   };

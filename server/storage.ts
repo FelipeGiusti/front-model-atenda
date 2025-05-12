@@ -39,7 +39,7 @@ export interface IStorage {
   updateWhatsappTemplate(id: number, template: Partial<InsertWhatsappTemplate>): Promise<WhatsappTemplate | undefined>;
   
   // Session store for authentication
-  sessionStore: session.SessionStore;
+  sessionStore: session.Store;
 }
 
 // In-memory implementation of the storage interface
@@ -56,7 +56,7 @@ export class MemStorage implements IStorage {
   private medicalRecordIdCounter: number;
   private whatsappTemplateIdCounter: number;
   
-  public sessionStore: session.SessionStore;
+  public sessionStore: session.Store;
   
   constructor() {
     this.usersStore = new Map();
@@ -96,7 +96,12 @@ export class MemStorage implements IStorage {
   
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.userIdCounter++;
-    const user: User = { ...insertUser, id };
+    const user: User = { 
+      ...insertUser, 
+      id, 
+      profession: insertUser.profession ?? null, 
+      role: insertUser.role ?? "defaultRole" 
+    };
     this.usersStore.set(id, user);
     return user;
   }
@@ -114,7 +119,13 @@ export class MemStorage implements IStorage {
   
   async createPatient(insertPatient: InsertPatient): Promise<Patient> {
     const id = this.patientIdCounter++;
-    const patient: Patient = { ...insertPatient, id };
+    const patient: Patient = { 
+      ...insertPatient, 
+      id, 
+      profession: insertPatient.profession ?? null, 
+      status: insertPatient.status ?? null, 
+      birthDate: insertPatient.birthDate ?? null 
+    };
     this.patientsStore.set(id, patient);
     return patient;
   }
@@ -156,7 +167,12 @@ export class MemStorage implements IStorage {
   
   async createAppointment(insertAppointment: InsertAppointment): Promise<Appointment> {
     const id = this.appointmentIdCounter++;
-    const appointment: Appointment = { ...insertAppointment, id };
+    const appointment: Appointment = { 
+      ...insertAppointment, 
+      id, 
+      status: insertAppointment.status ?? null,
+      notes: insertAppointment.notes ?? null 
+    };
     this.appointmentsStore.set(id, appointment);
     return appointment;
   }
@@ -183,7 +199,7 @@ export class MemStorage implements IStorage {
   
   async createMedicalRecord(insertRecord: InsertMedicalRecord): Promise<MedicalRecord> {
     const id = this.medicalRecordIdCounter++;
-    const record: MedicalRecord = { ...insertRecord, id };
+    const record: MedicalRecord = { ...insertRecord, id, date: insertRecord.date ?? new Date() };
     this.medicalRecordsStore.set(id, record);
     return record;
   }
@@ -201,7 +217,12 @@ export class MemStorage implements IStorage {
   
   async createWhatsappTemplate(insertTemplate: InsertWhatsappTemplate): Promise<WhatsappTemplate> {
     const id = this.whatsappTemplateIdCounter++;
-    const template: WhatsappTemplate = { ...insertTemplate, id };
+    const template: WhatsappTemplate = { 
+      ...insertTemplate, 
+      id, 
+      status: insertTemplate.status ?? null,
+      requestConfirmation: insertTemplate.requestConfirmation ?? null 
+    };
     this.whatsappTemplatesStore.set(id, template);
     return template;
   }

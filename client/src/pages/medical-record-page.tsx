@@ -277,7 +277,7 @@ export default function MedicalRecordPage() {
                       </label>
                       <Input 
                         type="date" 
-                        defaultValue={patient?.medicalHistory?.birthDate || "1995-05-15"}
+                        defaultValue={"1995-05-15"}
                       />
                     </div>
                     
